@@ -1,0 +1,32 @@
+body:before {
+    background: -webkit-linear-gradient(grey 1%, #3366ff 25%);
+    background: -o-linear-gradient(grey 1%, #3366ff 25%);
+    background: linear-gradient(grey 1%, #3366ff 25%);
+  	background-size: cover;
+	content: "";
+	display: block;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+}
+
+input, select, textarea{
+    color: #ff0000;
+}
+
+.content-section {
+	color: white;
+}
+
+.list-unstyled {
+	color: white;
+}
+
+.clear {
+	background: none;
+	border: 1px solid #dddddd;
+  	padding: 10px 20px;
+}

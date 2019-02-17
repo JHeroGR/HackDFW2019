@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2><center>Events</center></h2>
+  <ul class="list-unstyled">
+    {% for event in events_list %}
+    <li class="media">
+      <img class="mr-3" src="{{ event.image }}" width="50" alt="Generic placeholder image">
+      <div class="media-body">
+        <h5 class="mt-0 mb-1">{{ event.name }}</h5>
+        {{ event.description }}
+        <p><strong>Where:</strong> {{ event.location }}</p>
+        <p><strong>When:</strong> {{ event.date }}, {{ event.time}}</p>
+        <p><strong>Entry Fee:</strong> {{ event.entry_fee }}</p>
+      </div>
+    </li>
+    <hr>
+    {% endfor %}
+  </ul>
+{% endblock content %}

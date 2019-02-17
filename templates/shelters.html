@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Shelters Near You</legend>
+            <div class="form-group">
+                {{ form.streetname.label(class="form-control-label") }}
+                {% if form.streetname.errors %}
+                    {{ form.streetname(class="form-control form-control-lg is-invalid clear") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.streetname.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.streetname(class="form-control form-control-lg clear") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.storename.label(class="form-control-label") }}
+                {% if form.storename.errors %}
+                    {{ form.storename(class="form-control form-control-lg is-invalid clear") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.storename.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.storename(class="form-control form-control-lg clear") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+        	{{ form.helpme(class="btn btn-info") }}
+    		{{ form.dontknow(class="btn btn-danger") }}
+       	</div>
+    </form>
+</div>
+{% endblock content %}

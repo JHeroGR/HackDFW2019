@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<h1>YOU ARE HERE</h1>
+
+<div id="osm-map"></div>
+
+
+<script>
+
+    $( document ).ready(function() {
+    
+        
+
+
+
+        
+
+        //OSM Map script
+        var element = document.getElementById('osm-map');
+
+        // Height has to be set. You can do this in CSS too.
+        element.style = 'height:300px;';
+
+        // Create Leaflet map on map element.
+        var map = L.map(element);
+
+        // Add OSM tile leayer to the Leaflet map.
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // OSM map script ends
+    });
+
+
+
+</script>
+<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+
+{% endblock content %}
