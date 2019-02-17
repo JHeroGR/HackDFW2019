@@ -1,19 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
+<style>
+
+        .map-responsive{
+            overflow:hidden;
+            padding-bottom:56.25%;
+            position:relative;
+            height:0;
+        }
+        .map-responsive iframe{
+            left:0;
+            top:0;
+            height:100%;
+            width:100%;
+            position:absolute;
+        }
+</style>
 
 
 <a id="x" href="#">YOU ARE HERE</a>
 
 </br>
 
-<div class="container" style="width:800px; height:500px" id="map"></div>
+<div class="map-responsive" id="map"></div>
 
 
 </br>
-
-
-
-
 
 
 
