@@ -2,41 +2,126 @@
 {% block content %}
 
 
-<h1>YOU ARE HERE</h1>
+<a id="x" href="#">YOU ARE HERE</a>
 
-<div id="osm-map"></div>
+</br>
 
+<div style="width:800px; height:500px" id="map"></div>
+
+
+</br>
+
+
+<div id="Gmap"></div>
+
+
+<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+crossorigin=""></script>
 
 <script>
 
-    $( document ).ready(function() {
-    
+    $(document).ready(function(){
+       
+        function getLocation() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(redirect);
+            } else {
+              console.log("Geolocation is not supported by this browser.");
+            }
+          }
+
+          function redirect(position) {
+            $("#x").attr("href", "http://maps.google.com?q="+position.coords.latitude+","+position.coords.longitude)
+            
         
-
-
-
+        }
         
+        getLocation();
 
-        //OSM Map script
-        var element = document.getElementById('osm-map');
 
-        // Height has to be set. You can do this in CSS too.
-        element.style = 'height:300px;';
 
-        // Create Leaflet map on map element.
-        var map = L.map(element);
+        if (navigator.geolocation) 
+        {
+            navigator.geolocation.getCurrentPosition(function(position){
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            });
+            
+            var map = L.map('Gmap')
+            L.tileLayer('http://{s}.tile.cloudmade.com/1cc75fcc8e2243d1b2f6aab1e5850be1/998/256/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+            maxZoom: 18
+            }).addTo(map);
+            
+            map.locate({setView: true, maxZoom: 16});
+            function onLocationFound(e) {
+              var radius = e.accuracy / 2;
+              L.marker(e.latlng).addTo(map)
+                  .bindPopup("You are within " + radius + " meters from this point").openPopup();
+              L.circle(e.latlng, radius).addTo(map);
+            }
+            map.on('locationfound', onLocationFound);
+        }
+      
+        else {
+            alert("Geolocation API is not supported in your browser. :(");
+        }
 
-        // Add OSM tile leayer to the Leaflet map.
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // OSM map script ends
     });
+
+
+        //Googel api
+
+
+               
+
+      
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+
+
+    
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLOpbeLEN1Zvds_gV9DfsfQKUFCgXHyXw&callback=initMap">  
 
 
 
 </script>
-<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+
 
 {% endblock content %}
